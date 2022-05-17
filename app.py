@@ -36,24 +36,18 @@ def python_scan(folders_):
 
 
 def go_scan(folders_):
-    pass
-
-
-''' os.environ["PATH"] = "$PATH:/usr/local/bin/go/bin"
-    os.environ["PATH"] = "$PATH:/usr/local/bin/"
+    os.environ['PATH'] += os.pathsep + '/usr/local/go/bin'
     thisdir = os.getcwd()
     os.chdir(folders_)
-
-
     gosec = subprocess.run(['gosec', '-r', './...'], capture_output=True, text=True)
     print(gosec.stdout)
     os.chdir(thisdir)
-    print(os.getcwd())
-'''
+
+
 
 
 def java_scan(folders_):
-    subprocess.run(['/home/toor/dependency-check/bin/dependency-check.sh',
+    subprocess.run(['../dependency-check/bin/dependency-check.sh',
                     '--scan', folders_, '-f', 'JSON'], capture_output=True)
 
     with open('dependency-check-report.json') as report:
@@ -94,7 +88,6 @@ def github_scan():
 #TODO выбираем инстурменты под язык СИ
 #TODO сделать так, чтобы контейнер не установаливал все подряд
 #TODO пофиксить докерфайл
-#TODO доделать го
 #TODO нужно ли юзать триви с гита?
 #TODO найти больше инструментов
 
@@ -119,4 +112,4 @@ if 'github' in url:
 
 if 'docker' in url:
     docker_scan()
-    print()
+
