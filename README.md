@@ -17,6 +17,9 @@ _______________________________________________
 Programming language support
 
 Go: securego/gosec
+
 Python: PyCQA/bandit
+
 Java: jeremylong/DependencyCheck 
+
 Docker-images: Trivy, Grype
