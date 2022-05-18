@@ -58,6 +58,8 @@ def java_scan(folders_):
 def github_scan():
     # сканирование гитхаба
     name = url[re.search(r'.com/', url).end():]
+    if '/' == name[-1]:
+        name = name[:-1]
     folders = dir + name
     try:
         # Удалаем папку если есть
@@ -86,17 +88,17 @@ def github_scan():
 
 #TODO понять как запустить сонар
 #TODO выбираем инстурменты под язык СИ
-#TODO сделать так, чтобы контейнер не установаливал все подряд
-#TODO пофиксить докерфайл
 #TODO нужно ли юзать триви с гита?
 #TODO найти больше инструментов
 
 
 def docker_scan():
     name = url[re.search(r'.com/', url).end():]  # грепаем нормально имя контейнера
-    if '_/' or 'r/' == name[:1] in name:
-        if '/' == name[-1]: name = name[:-1]
+    if '_/' in name or 'r/' == name[:1]:
         name = name[2:]
+    if '/' == name[-1]:
+        name = name[:-1]
+
     print("__________________Trivy_____________________ ")
     trivy = subprocess.run(['trivy', 'image', name], capture_output=True, text=True)
     print(trivy.stdout)
